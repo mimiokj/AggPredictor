@@ -69,6 +69,28 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────────────────────────────────────
+# 비밀번호 인증
+# ─────────────────────────────────────────────────────────────────────────────
+
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.markdown("## 🧬 AggPredict v2.0")
+    st.divider()
+    col_pw, _, _ = st.columns([1.2, 1, 1])
+    with col_pw:
+        st.markdown("**Password required to access this tool.**")
+        pw_input = st.text_input("Password", type="password", placeholder="Enter password")
+        if st.button("Enter", type="primary"):
+            if pw_input == "Daewoong":
+                st.session_state.authenticated = True
+                st.rerun()
+            else:
+                st.error("Incorrect password.")
+    st.stop()
+
+# ─────────────────────────────────────────────────────────────────────────────
 # 헤더
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -533,5 +555,8 @@ with tab4:
 # ─────────────────────────────────────────────────────────────────────────────
 
 st.divider()
-st.caption("AggPredict v2.0 · Mechanistic AI prototype for biologics formulation screening · "
-           "All heuristic assumptions documented in aggpredict_v2.py")
+st.caption(
+    "AggPredict v2.0 · Mechanistic AI prototype for biologics formulation screening · "
+    "All heuristic assumptions documented in aggpredict_v2.py  |  "
+    "Developed by Taeheon Kim, PhD · For Daewoong R&D internal use only"
+)
